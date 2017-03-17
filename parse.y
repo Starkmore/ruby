@@ -5092,13 +5092,17 @@ tr_types	: tr_types ',' tr_type
 		| tr_type
 		;
 
-tr_type		: tr_cpath
+tr_type		: tr_type keyword_or tr_union_type
+		| tr_union_type
+		;
+
+tr_union_type	: tr_cpath
 		| tr_cpath tCOLON2 '[' tr_types rbracket
 		| tLBRACK tr_type rbracket
 		| tLBRACK tr_type ',' tr_types rbracket
 		| tLBRACE tr_type tASSOC tr_type '}'
 		| tLBRACE tr_blockproto tr_returnsig '}'
-		| '~' tr_type
+		| '~' tr_union_type
 		| keyword_nil
 		| symbol
 		;
